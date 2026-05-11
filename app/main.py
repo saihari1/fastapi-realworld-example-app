@@ -8,7 +8,7 @@ from app.api.errors.validation_error import http422_error_handler
 from app.api.routes.api import router as api_router
 from app.core.config import get_app_settings
 from app.core.events import create_start_app_handler, create_stop_app_handler
-
+from app.core.tracing.tracer import setup_tracing
 
 def get_application() -> FastAPI:
     settings = get_app_settings()
@@ -16,6 +16,8 @@ def get_application() -> FastAPI:
     settings.configure_logging()
 
     application = FastAPI(**settings.fastapi_kwargs)
+
+    setup_tracing(application)
 
     application.add_middleware(
         CORSMiddleware,

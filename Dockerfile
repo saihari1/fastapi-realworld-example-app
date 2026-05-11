@@ -12,6 +12,9 @@ RUN apt-get update && \
 
 COPY poetry.lock pyproject.toml ./
 
+COPY pyproject.toml ./
+
+
 # Install poetry WITHOUT upgrading setuptools globally
 RUN pip install "poetry==1.1.0" "poetry-core==1.0.0"
 
